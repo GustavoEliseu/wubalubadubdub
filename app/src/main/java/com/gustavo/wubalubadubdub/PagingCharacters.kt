@@ -1,6 +1,7 @@
 package com.gustavo.wubalubadubdub
 
-import com.gustavo.wubalubadubdub.model.Character
+import com.gustavo.wubalubadubdub.model.CharacterResponse
+import com.gustavo.wubalubadubdub.utils.BASE_URL
 import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,9 +19,8 @@ interface PagingCharacters {
         @Query("page") page: Int,
         @Query("name") name:String?,
         @Query("status") status: String?
-    ): Single<Character>
+    ): Single<CharacterResponse>
     companion object {
-        private const val BASE_URL = "https://rickandmortyapi.com/api/character/"
 
         fun create(): PagingCharacters {
             val logger = HttpLoggingInterceptor()

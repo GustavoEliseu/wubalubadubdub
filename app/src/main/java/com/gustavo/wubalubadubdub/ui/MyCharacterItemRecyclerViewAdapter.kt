@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import com.gustavo.wubalubadubdub.databinding.CharacterItemBinding
-import com.gustavo.wubalubadubdub.model.Character
+import com.gustavo.wubalubadubdub.model.Characters
 import com.gustavo.wubalubadubdub.utils.extensions.load
 
 
@@ -14,12 +16,13 @@ import com.gustavo.wubalubadubdub.utils.extensions.load
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
  * TODO: Replace the implementation with code for your data type.
  */
-class MyCharacterItemRecyclerViewAdapter(val values: List<Character>
-) : RecyclerView.Adapter<MyCharacterItemRecyclerViewAdapter.ViewHolder>() {
+class MyCharacterItemRecyclerViewAdapter() : PagingDataAdapter<Characters, MyCharacterItemRecyclerViewAdapter.CharacterViewHolder>(
+    COMPARATOR
+) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
 
-        return ViewHolder(
+        return CharacterViewHolder(
             CharacterItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -29,20 +32,20 @@ class MyCharacterItemRecyclerViewAdapter(val values: List<Character>
 
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(values[position])
+    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
-    override fun getItemCount(): Int = values.size
-
-    inner class ViewHolder(binding: CharacterItemBinding) :
+    inner class CharacterViewHolder(binding: CharacterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val characterNameView: TextView = binding.characterName
         private val imageView: ImageView = binding.characterPhoto
 
-        fun bind(character: Character){
-            characterNameView.text = character.name
-            imageView.load(character.image)
+        fun bind(characters: Characters){
+            characterNameView.text = characters.name
+            imageView.load(characters.image)
         }
 
         override fun toString(): String {
@@ -50,4 +53,15 @@ class MyCharacterItemRecyclerViewAdapter(val values: List<Character>
         }
     }
 
+    companion object {
+        private val COMPARATOR = object : DiffUtil.ItemCallback<Characters>() {
+            override fun areItemsTheSame(oldItem: Characters, newItem: Characters): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Characters, newItem: Characters): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 }

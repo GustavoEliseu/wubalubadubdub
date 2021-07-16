@@ -8,6 +8,9 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
         applicationId "com.gustavo.wubalubadubdub"
         minSdkVersion 21
@@ -28,7 +31,6 @@ android {
         }
         debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", "\"https://rickandmortyapi.com/api/\""
             buildConfigField "okhttp3.logging.HttpLoggingInterceptor.Level", "INTERCEPTOR_LEVEL", "okhttp3.logging.HttpLoggingInterceptor.Level.BODY"
             debuggable = true
@@ -77,6 +79,9 @@ dependencies {
     implementation "androidx.paging:paging-rxjava2-ktx:$paging_version"
 
     implementation "io.coil-kt:coil:0.11.0"
+
+    // Data mBinding
+    kapt "androidx.databinding:databinding-compiler:$gradle_version"
 
     // Timber dependency
     implementation 'com.jakewharton.timber:timber:4.7.1'

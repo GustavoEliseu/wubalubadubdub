@@ -1,11 +1,10 @@
 package com.gustavo.wubalubadubdub.model
 
-import dagger.multibindings.IntoMap
 import java.util.*
 
 data class CharacterResponse(
     val info:RequestInfo,
-    val results: List<Character>
+    val results: List<Characters>
 )
 
 data class RequestInfo(
@@ -15,7 +14,14 @@ data class RequestInfo(
     val prev: String
 )
 
-data class Character(
+data class CharacterList(
+    val count:Int,
+    val page:Int,
+    val lastPage: Int,
+    val charactersList:List<Characters>
+)
+
+data class Characters(
     val id: Int,
     val name: String,
     val status: String,

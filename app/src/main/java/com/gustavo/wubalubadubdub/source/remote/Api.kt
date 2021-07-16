@@ -12,6 +12,6 @@ interface Api {
         @Query("api_key") apiKey: String,
         @Query("page") page: Int,
         @Query("name") name:String?,
-        @Query("status") status: String?): Observable<List<CharacterResponse>>
+        @Query("status") status: String?): Observable<CharacterResponse>
 
 }
