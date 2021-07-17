@@ -16,7 +16,7 @@ import io.reactivex.disposables.CompositeDisposable
 /**
  * A fragment representing a list of Items.
  */
-class CharacterItemFragment : Fragment() {
+class CharacterListFragment : Fragment() {
 
     private val mDisposable = CompositeDisposable()
 
