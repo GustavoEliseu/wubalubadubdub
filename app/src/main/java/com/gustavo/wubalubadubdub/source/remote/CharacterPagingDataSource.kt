@@ -3,6 +3,7 @@ package com.gustavo.wubalubadubdub.source.remote
 import android.net.Uri
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.gustavo.wubalubadubdub.BuildConfig
 import com.gustavo.wubalubadubdub.model.Characters
 import timber.log.Timber
 
@@ -17,6 +18,8 @@ class CharactersPagingDataSource(private val service: Api) :
         return try {
             val response = service.getCharacterList(pageNumber)
             val pagedResponse = response.body()
+            if(BuildConfig.DEBUG)
+                Timber.tag("requestBody:").e(response.raw().toString())
             val data = pagedResponse?.results
 
             var nextPageNumber: Int? = null
@@ -32,7 +35,6 @@ class CharactersPagingDataSource(private val service: Api) :
                 nextKey = nextPageNumber
             )
         } catch (e: Exception) {
-            Timber.tag("testeee").e(e)
             LoadResult.Error(e)
         }
     }

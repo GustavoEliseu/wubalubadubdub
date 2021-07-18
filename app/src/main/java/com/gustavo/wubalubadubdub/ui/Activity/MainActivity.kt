@@ -1,8 +1,6 @@
-package com.gustavo.wubalubadubdub.ui
+package com.gustavo.wubalubadubdub.ui.Activity
 
 import android.os.Bundle
-import android.widget.Toast
-import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.gustavo.wubalubadubdub.R
@@ -13,7 +11,7 @@ import com.gustavo.wubalubadubdub.ui.viewmodel.MainViewModelFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
-@ExperimentalCoroutinesApi
+
 class MainActivity : BaseActivity<MainViewModel, MainViewModelFactory>() {
 
     private val charactersFragment =  CharacterListFragment()

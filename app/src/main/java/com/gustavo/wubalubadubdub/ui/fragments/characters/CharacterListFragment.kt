@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.gustavo.wubalubadubdub.R
 import com.gustavo.wubalubadubdub.base.BaseFragment
 import com.gustavo.wubalubadubdub.databinding.FragmentCharactersListBinding
+import com.gustavo.wubalubadubdub.model.Characters
+import com.gustavo.wubalubadubdub.ui.Activity.characterDetailsIntent
 import com.gustavo.wubalubadubdub.ui.viewmodel.CharacterListViewModel
 import com.gustavo.wubalubadubdub.ui.viewmodel.CharacterListViewModelFactory
 import io.reactivex.disposables.CompositeDisposable
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.collectLatest
 /**
  * A fragment representing a list of Items.
  */
-class CharacterListFragment : BaseFragment<CharacterListViewModel,CharacterListViewModelFactory,FragmentCharactersListBinding>() {
+class CharacterListFragment : BaseFragment<CharacterListViewModel,CharacterListViewModelFactory,FragmentCharactersListBinding>(), CharacterListActions {
 
     private val mDisposable = CompositeDisposable()
 
@@ -48,7 +48,7 @@ class CharacterListFragment : BaseFragment<CharacterListViewModel,CharacterListV
                 val snapHelper: SnapHelper = LinearSnapHelper()
                 snapHelper.attachToRecyclerView(rvCharacters)
                 adapter = mViewModel.mAdapter
-                layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+                layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false)
             }
 
             with(mViewModel) {
@@ -57,6 +57,8 @@ class CharacterListFragment : BaseFragment<CharacterListViewModel,CharacterListV
                 }
             }
         }
+
+        mViewModel.initCharacterListActions(this)
 
         return mBinding.root
     }
@@ -74,5 +76,9 @@ class CharacterListFragment : BaseFragment<CharacterListViewModel,CharacterListV
     override fun getViewModelClass(): Class<CharacterListViewModel> = CharacterListViewModel::class.java
 
     override fun initializeUi() {
+    }
+
+    override fun onCharacterClick(character: Characters) {
+        activity?.startActivity(requireActivity().characterDetailsIntent(character))
     }
 }

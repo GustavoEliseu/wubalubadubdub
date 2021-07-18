@@ -9,6 +9,7 @@ import com.gustavo.wubalubadubdub.model.Characters
 import com.gustavo.wubalubadubdub.source.repository.CharacterRepository
 import com.gustavo.wubalubadubdub.source.repository.CharacterRepositoryImpl
 import com.gustavo.wubalubadubdub.ui.CharacterListAdapter
+import com.gustavo.wubalubadubdub.ui.fragments.characters.CharacterListActions
 import com.gustavo.wubalubadubdub.utils.extensions.isNotNullOrNotEmptyOrNotBlank
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,14 +20,13 @@ import javax.inject.Inject
 class CharacterListViewModel @Inject constructor(private val repository: CharacterRepositoryImpl ) : BaseViewModel() {
 
     val mAdapter = CharacterListAdapter(::onCharacterClick)
-
-    private lateinit var _charactersFlow: Flow<PagingData<Characters>>
     val charactersFlow: Flow<PagingData<Characters>>
         get() = _charactersFlow
+    private lateinit var _charactersFlow: Flow<PagingData<Characters>>
+    private var characterListActions:CharacterListActions? = null
 
-
-    fun onCharacterClick(characters: Characters){
-        Timber.tag("testeee").e(characters.name)
+    fun initCharacterListActions(mCharacterListActions:CharacterListActions){
+        characterListActions = mCharacterListActions
     }
 
     fun getCharacterList() {
@@ -40,4 +40,8 @@ class CharacterListViewModel @Inject constructor(private val repository: Charact
         }
     }
 
+    //Private functions
+    private fun onCharacterClick(characters: Characters){
+        characterListActions?.onCharacterClick(characters)
+    }
 }

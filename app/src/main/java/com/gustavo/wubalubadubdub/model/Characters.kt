@@ -1,6 +1,7 @@
 package com.gustavo.wubalubadubdub.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.util.*
 
 data class CharacterResponse<T>(
@@ -35,6 +36,6 @@ data class Characters(
     val episode: List<String>,
     val url: String,
     val created: Date
-) {
+):Serializable {
     constructor() : this(0,"","","","","",SimpleLocation(),SimpleLocation(),"", listOf(),"",Date())
 }

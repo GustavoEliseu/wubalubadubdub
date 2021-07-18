@@ -18,6 +18,10 @@ class MyApplication : Application(), HasAndroidInjector {
 
     override fun onCreate(){
         super.onCreate()
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+
         // RxJava errorHandler
         RxJavaPlugins.setErrorHandler { Timber.d(it) }
         // Dagger injection
