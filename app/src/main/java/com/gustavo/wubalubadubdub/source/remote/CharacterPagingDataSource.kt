@@ -11,12 +11,11 @@ class CharactersPagingDataSource(private val service: Api) :
     PagingSource<Int, Characters>() {
 
     var characterStatus:String? = null
-    var characterId:Int? = null
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Characters> {
         val pageNumber = params.key ?: 1
         return try {
-            val response = service.getCharacterList(pageNumber)
+            val response = service.getCharacterList(pageNumber,characterStatus)
             val pagedResponse = response.body()
             if(BuildConfig.DEBUG)
                 Timber.tag("requestBody:").e(response.raw().toString())
