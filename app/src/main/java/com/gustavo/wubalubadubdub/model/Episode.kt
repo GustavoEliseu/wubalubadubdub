@@ -1,4 +1,5 @@
 package com.gustavo.wubalubadubdub.model
 
-data class SimpleEpisode(val url:String) {
+data class SimpleEpisode(val episodes:List<String>) {
+    constructor():this(listOf())
 }

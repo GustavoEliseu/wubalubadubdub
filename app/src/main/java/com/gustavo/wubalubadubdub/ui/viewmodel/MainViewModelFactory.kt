@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class CharacterListViewModelFactory @Inject constructor(
-    private val characterListViewModel: CharacterListViewModel
-): ViewModelProvider.Factory  {
+class MainViewModelFactory @Inject constructor(
+    private val mainViewModel: MainViewModel
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CharacterListViewModel::class.java)) {
-            return characterListViewModel as T
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            return mainViewModel as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

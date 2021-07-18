@@ -1,5 +1,6 @@
 package com.gustavo.wubalubadubdub.base
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 abstract class BaseFragment<VM : BaseViewModel, F : ViewModelProvider.Factory, VDB : ViewDataBinding>: Fragment() {
     lateinit var mActivity: BaseActivity<VM, *>
     lateinit var mViewModel: VM
+
     @Inject
     lateinit var mViewModelFactory: F
     lateinit var mBinding: VDB
@@ -24,6 +28,11 @@ abstract class BaseFragment<VM : BaseViewModel, F : ViewModelProvider.Factory, V
     abstract fun viewTitle(): Int?
     protected abstract fun getViewModelClass(): Class<VM>
     abstract fun initializeUi()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        AndroidSupportInjection.inject(this)
+    }
 
     open fun setTitle() {
         viewTitle()?.let {
@@ -48,5 +57,11 @@ abstract class BaseFragment<VM : BaseViewModel, F : ViewModelProvider.Factory, V
         setTitle()
         mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         return mBinding.root
+    }
+
+    fun launchOnLifecycleScope(execute: suspend () -> Unit) {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            execute()
+        }
     }
 }

@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.gustavo.wubalubadubdub.ui.viewmodel.CharacterListViewModel" />
+    </data>
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
      android:layout_height="match_parent"
+    android:weightSum="10"
     android:layout_width="match_parent">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/characterList"
-        android:name="com.Gustavo.wubalubadubdub.CharacterItemFragment"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/teal_200"
+        android:text="testeee"
+        android:layout_weight="1"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/characterListRecyclerView"
+        android:name="com.gustavo.wubalubadubdub.CharacterItemFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ui.fragments.characters.CharacterListFragment"
         tools:listitem="@layout/character_item" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/teal_200"
+        android:text="testeee2"
+        android:layout_weight="1"
+        />
 </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

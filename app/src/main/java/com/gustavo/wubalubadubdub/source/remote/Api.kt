@@ -1,17 +1,17 @@
 package com.gustavo.wubalubadubdub.source.remote
 
 import com.gustavo.wubalubadubdub.model.CharacterResponse
-import io.reactivex.Observable
+import com.gustavo.wubalubadubdub.model.Characters
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface Api {
 
-    @GET("character")
-    fun getCharacterList(
-        @Query("api_key") apiKey: String,
+    @GET("character/")
+    suspend fun getCharacterList(
         @Query("page") page: Int,
-        @Query("name") name:String?,
-        @Query("status") status: String?): Observable<CharacterResponse>
+        @Query("id") id:Int? = null,
+        @Query("status") status: String? = ""): Response<CharacterResponse<Characters>>
 
 }

@@ -2,8 +2,8 @@ package com.gustavo.wubalubadubdub.source.repository
 
 import androidx.paging.PagingData
 import com.gustavo.wubalubadubdub.model.Characters
-import io.reactivex.Flowable
+import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository {
-    fun getCharacters(): Flowable<PagingData<Characters>>
+    fun getCharacters(): Flow<PagingData<Characters>>
 }

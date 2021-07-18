@@ -8,6 +8,4 @@
     tools:context=".ui.MainActivity"
     tools:showIn="@layout/activity_main"
     android:padding="1dp"
-    android:id="@+id/main_container">
-
-</FrameLayout>
+    android:id="@+id/main_container"/>

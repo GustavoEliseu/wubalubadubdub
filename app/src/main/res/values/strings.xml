@@ -3,4 +3,5 @@
     <string name="characters">Personagens</string>
     <string name="locations">Lugares</string>
     <string name="episodes">Episódios</string>
+    <string name="url_not_found">404 Url não encontrada</string>
 </resources>

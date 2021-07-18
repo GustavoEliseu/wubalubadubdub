@@ -8,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class FragmentModule {
 
     @ContributesAndroidInjector
-    internal abstract fun contributeCharacterItemFragment(): CharacterListFragment
+    internal abstract fun contributeCharacterListFragment(): CharacterListFragment
 }
