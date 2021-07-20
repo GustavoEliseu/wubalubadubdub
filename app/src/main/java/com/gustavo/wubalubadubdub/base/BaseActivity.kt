@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -21,10 +22,9 @@ abstract class BaseActivity<VM : BaseViewModel, F : ViewModelProvider.Factory> :
     protected abstract fun getViewModelClass(): Class<VM>
     abstract fun initializeUi()
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(getViewModelClass())
-
-        super.onCreate(savedInstanceState, persistentState)
+        super.onCreate(savedInstanceState)
     }
 }

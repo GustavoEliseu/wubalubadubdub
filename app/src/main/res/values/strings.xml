@@ -4,4 +4,12 @@
     <string name="locations">Lugares</string>
     <string name="episodes">Episódios</string>
     <string name="url_not_found">404 Url não encontrada</string>
+    <string name="name">Nome:</string>
+    <string name="status">Estado:</string>
+    <string name="species">Espécies:</string>
+    <string name="origin">Origem:</string>
+    <string name="first_appearance">Primeira Aparição:</string>
+    <string name="last_appearance">Última Aparição:</string>
+    <string name="episode_number">Episódio %s</string>
+    <string name="cant_identify_character_click">Não foi possível identificar o personagem clicado: ID inválido</string>
 </resources>

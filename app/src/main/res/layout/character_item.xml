@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="viewModel"
+            type="com.gustavo.wubalubadubdub.ui.viewmodel.CharacterItemViewModel" />
+    </data>
+<LinearLayout
     android:layout_width="175dp"
     android:layout_height="220dp"
     android:layout_marginStart="5dp"
@@ -20,12 +28,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onClick.invoke(viewModel.characters)}"
             android:paddingBottom="0dp">
 
             <ImageView
                 android:id="@+id/characterPhoto"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                imageUrl="@{viewModel.characters.image}"
                 app:layout_constraintBottom_toTopOf="@+id/characterName"
                 app:layout_constraintDimensionRatio="W,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +49,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:text="@{viewModel.characters.name}"
                 android:layout_marginTop="0dp"
                 android:ellipsize="end"
                 android:gravity="center"
@@ -58,3 +69,4 @@
     </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
+</layout>

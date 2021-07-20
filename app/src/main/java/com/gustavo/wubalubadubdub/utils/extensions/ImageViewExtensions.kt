@@ -1,16 +1,23 @@
 package com.gustavo.wubalubadubdub.utils.extensions
 
 import android.widget.ImageView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.gustavo.wubalubadubdub.R
 
 fun ImageView.load(url: String?) {
         if (url != null) {
-            Glide
-                .with(context)
+            val circularProgressDrawable = CircularProgressDrawable(context)
+            circularProgressDrawable.strokeWidth = 5f
+            circularProgressDrawable.centerRadius = 30f
+            circularProgressDrawable.start()
+
+            Glide.with(context)
                 .load(url)
                 .centerCrop()
+                .placeholder(circularProgressDrawable)
                 .apply(myRequestOptionGlide())
                 .into(this)
         }

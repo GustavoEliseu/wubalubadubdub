@@ -1,62 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.gustavo.wubalubadubdub.ui.viewmodel.CharacterDetailsViewModel" />
+    </data>
+<RelativeLayout
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <ImageView
         android:id="@+id/characterPhoto"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/characterName"
-        app:layout_constraintDimensionRatio="W,1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        app:imageUrl="@{viewModel.characterDetails.image}"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         tools:srcCompat="@drawable/rick_sanchez_portrait" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/Name"
-        android:layout_width="0dp"
+        android:id="@+id/charName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="0dp"
+        android:layout_below="@id/characterPhoto"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="10dp"
         android:ellipsize="end"
-        android:gravity="center_vertical|start"
+        android:gravity="center"
         android:lines="2"
         android:maxLines="2"
+        android:text="@string/name"
         android:textSize="16sp"
         app:autoSizeMaxTextSize="16sp"
         app:autoSizeMinTextSize="12sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/characterPhoto"
-        app:lineHeight="18dp"
-        android:text="Name: " />
+        app:lineHeight="18dp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/characterName"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/charName"
+        android:layout_alignStart="@id/charName"
+        android:layout_alignEnd="@id/charName"
+        android:text="@{viewModel.characterDetails.name}"
         android:ellipsize="end"
-        android:gravity="center_vertical|start"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:gravity="center"
         android:lines="2"
         android:maxLines="2"
         android:textSize="16sp"
         app:autoSizeMaxTextSize="16sp"
         app:autoSizeMinTextSize="12sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/Name"
-        app:layout_constraintTop_toBottomOf="@+id/characterPhoto"
         app:lineHeight="18dp"
         tools:text="Rick Sanchez" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/Species"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/characterName"
+        android:layout_alignParentStart="true"
+        android:weightSum="2">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="2"
+            android:maxLines="2"
+            android:text="@string/species"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform"
+            app:lineHeight="18dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/characterSpecies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/Species"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/Species"
+            android:text="@{viewModel.characterDetails.species}"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical|start"
+            android:lines="2"
+            android:maxLines="2"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform"
+            tools:text="Humano" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/Status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Species"
+        android:layout_alignParentStart="true"
+        android:weightSum="2">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="2"
+            android:maxLines="2"
+            android:text="@string/status"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform"
+            app:lineHeight="18dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/characterStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical|start"
+            android:text="@{viewModel.characterDetails.status}"
+            android:lines="2"
+            android:maxLines="2"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform"
+            app:lineHeight="18dp"
+            tools:text="Vivo" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/Origin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Status"
+        android:layout_alignParentStart="true"
+        android:weightSum="2">
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/characterStatus"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="0dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="2"
+        android:maxLines="2"
+        android:text="@string/origin"
+        android:textSize="16sp"
+        app:autoSizeMaxTextSize="16sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:lineHeight="18dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/characterOrigin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/Origin"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/Origin"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical|start"
+        android:lines="2"
+        android:maxLines="2"
+        android:textSize="16sp"
+        app:autoSizeMaxTextSize="16sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        android:text="@{viewModel.characterDetails.origin.name}"
+        app:lineHeight="18dp"
+        tools:text="Terra" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/FirstAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Origin"
+        android:layout_alignParentStart="true"
+        android:weightSum="2">
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Origin"
+        android:layout_alignParentStart="true"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="2"
+        android:maxLines="2"
+        android:text="@string/first_appearance"
+        android:textSize="16sp"
+        app:autoSizeMaxTextSize="16sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:lineHeight="18dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/characterFirstAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/FirstAppearance"
+        android:layout_alignParentEnd="true"
+        android:layout_weight="1"
+        android:layout_toEndOf="@id/FirstAppearance"
+        android:ellipsize="end"
+        android:gravity="center_vertical|start"
+        android:lines="2"
+        android:maxLines="2"
+        android:textSize="16sp"
+        app:autoSizeMaxTextSize="16sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        android:text="@{viewModel.characterDetails.firstEpisode}"
+        app:lineHeight="18dp"
+        tools:text="Episódio 1" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/LastAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/FirstAppearance"
+        android:layout_alignParentStart="true"
+        android:weightSum="2">
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/FirstAppearance"
+        android:layout_alignParentStart="true"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="2"
+        android:maxLines="2"
+        android:text="@string/last_appearance"
+        android:textSize="16sp"
+        app:autoSizeMaxTextSize="16sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:lineHeight="18dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/characterLastAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/LastAppearance"
+        android:layout_alignParentEnd="true"
+        android:layout_weight="1"
+        android:layout_toEndOf="@id/LastAppearance"
+        android:ellipsize="end"
+        android:gravity="center_vertical|start"
+        android:lines="2"
+        android:maxLines="2"
+        android:textSize="16sp"
+        android:text="@{viewModel.characterDetails.lastEpisode}"
+        app:autoSizeMaxTextSize="16sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:lineHeight="18dp"
+        tools:text="Episódio 41" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>
+</layout>

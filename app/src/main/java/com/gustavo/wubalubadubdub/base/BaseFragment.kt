@@ -56,6 +56,7 @@ abstract class BaseFragment<VM : BaseViewModel, F : ViewModelProvider.Factory, V
         super.onCreateView(inflater, container, savedInstanceState)
         setTitle()
         mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        mBinding.lifecycleOwner = this
         return mBinding.root
     }
 

@@ -1,6 +1,7 @@
 package com.gustavo.wubalubadubdub.model
 
 import com.google.gson.annotations.SerializedName
+import com.gustavo.wubalubadubdub.utils.extensions.isNullOrEmptyOrBlank
 import java.io.Serializable
 import java.util.*
 
@@ -35,7 +36,14 @@ data class Characters(
     val image: String,
     val episode: List<String>,
     val url: String,
-    val created: Date
+    val created: Date,
+    var firstEpisode: String? = null,
+    var lastEpisode: String? = null
 ):Serializable {
     constructor() : this(0,"","","","","",SimpleLocation(),SimpleLocation(),"", listOf(),"",Date())
+
+    fun isEmpty(): Boolean{
+        return(name.isNullOrEmptyOrBlank() && status.isNullOrEmptyOrBlank() &&  image.isNullOrEmptyOrBlank() && species.isNullOrEmptyOrBlank())
+    }
+
 }

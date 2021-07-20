@@ -41,7 +41,7 @@ class CharacterListViewModel @Inject constructor(private val repository: Charact
     }
 
     //Private functions
-    private fun onCharacterClick(characters: Characters){
+    private fun onCharacterClick(characters: Characters?){
         characterListActions?.onCharacterClick(characters)
     }
 }

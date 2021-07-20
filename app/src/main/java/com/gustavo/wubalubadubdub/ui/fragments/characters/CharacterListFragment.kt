@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -20,7 +21,9 @@ import kotlinx.coroutines.flow.collectLatest
 /**
  * A fragment representing a list of Items.
  */
-class CharacterListFragment : BaseFragment<CharacterListViewModel,CharacterListViewModelFactory,FragmentCharactersListBinding>(), CharacterListActions {
+class CharacterListFragment :
+    BaseFragment<CharacterListViewModel, CharacterListViewModelFactory, FragmentCharactersListBinding>(),
+    CharacterListActions {
 
     private val mDisposable = CompositeDisposable()
 
@@ -48,7 +51,8 @@ class CharacterListFragment : BaseFragment<CharacterListViewModel,CharacterListV
                 val snapHelper: SnapHelper = LinearSnapHelper()
                 snapHelper.attachToRecyclerView(rvCharacters)
                 adapter = mViewModel.mAdapter
-                layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false)
+                layoutManager =
+                    GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
             }
 
             with(mViewModel) {
@@ -73,12 +77,21 @@ class CharacterListFragment : BaseFragment<CharacterListViewModel,CharacterListV
 
     override fun viewTitle(): Int = R.string.characters
 
-    override fun getViewModelClass(): Class<CharacterListViewModel> = CharacterListViewModel::class.java
+    override fun getViewModelClass(): Class<CharacterListViewModel> =
+        CharacterListViewModel::class.java
 
     override fun initializeUi() {
     }
 
-    override fun onCharacterClick(character: Characters) {
-        activity?.startActivity(requireActivity().characterDetailsIntent(character))
+    override fun onCharacterClick(character: Characters?) {
+        if (character != null) {
+            activity?.startActivity(requireActivity().characterDetailsIntent(character))
+        } else {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.cant_identify_character_click),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }

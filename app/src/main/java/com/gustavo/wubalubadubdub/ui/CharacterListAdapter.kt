@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gustavo.wubalubadubdub.R
 import com.gustavo.wubalubadubdub.databinding.CharacterItemBinding
 import com.gustavo.wubalubadubdub.model.Characters
+import com.gustavo.wubalubadubdub.ui.viewmodel.CharacterItemViewModel
 import com.gustavo.wubalubadubdub.utils.extensions.load
 
-class CharacterListAdapter(val onItemClick: (Characters) -> Unit) : PagingDataAdapter<Characters, CharacterListAdapter.CharacterViewHolder>(
+class CharacterListAdapter(val onItemClick: (Characters?) -> Unit) : PagingDataAdapter<Characters, CharacterListAdapter.CharacterViewHolder>(
     COMPARATOR
 ) {
 
@@ -35,25 +36,19 @@ class CharacterListAdapter(val onItemClick: (Characters) -> Unit) : PagingDataAd
         }
     }
 
-    inner class CharacterViewHolder(binding: CharacterItemBinding) :
+    inner class CharacterViewHolder(private val binding: CharacterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val rootView: View = binding.root
-        private val characterNameView: TextView = rootView.findViewById(R.id.characterName)
-        private val imageView: ImageView = rootView.findViewById(R.id.characterPhoto)
+        private val characterViewModel = CharacterItemViewModel()
 
         fun bind(characters: Characters){
-            characterNameView.text = characters.name
-            imageView.load(characters.image)
-
-            rootView.setOnClickListener {
-                onItemClick.invoke(characters)
-            }
-
+            characterViewModel.bind(characters,::onItemClick)
+            binding.viewModel = characterViewModel
+            binding.executePendingBindings()
         }
 
-        override fun toString(): String {
-            return super.toString() + " '" + characterNameView.text.toString() + "'"
+        private fun onItemClick(characters: Characters?){
+            onItemClick.invoke(characters)
         }
     }
 
