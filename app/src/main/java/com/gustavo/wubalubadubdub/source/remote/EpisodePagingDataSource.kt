@@ -4,22 +4,23 @@ import android.net.Uri
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.gustavo.wubalubadubdub.BuildConfig
-import com.gustavo.wubalubadubdub.model.Characters
+import com.gustavo.wubalubadubdub.model.Episodes
 import timber.log.Timber
 
-class CharactersPagingDataSource(private val service: Api) :
-    PagingSource<Int, Characters>() {
 
-    private var characterSearch: String? = null
+class EpisodePagingDataSource(private val service: Api) :
+    PagingSource<Int, Episodes>() {
 
-    fun updateSearch(search:String?){
-        characterSearch = search
+    private var episodeSearch: String? = null
+
+    fun updateEpisodeSearch(mSearch: String?){
+        episodeSearch = mSearch
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Characters> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Episodes> {
         val pageNumber = params.key ?: 1
         return try {
-            val response = service.getCharacterList(pageNumber, characterSearch)
+            val response = service.getEpisodeList(pageNumber,episodeSearch)
             val pagedResponse = response.body()
             if(BuildConfig.DEBUG)
                 Timber.tag("requestBody:").e(response.raw().toString())
@@ -42,5 +43,5 @@ class CharactersPagingDataSource(private val service: Api) :
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Characters>): Int = 1
+    override fun getRefreshKey(state: PagingState<Int, Episodes>): Int = 1
 }

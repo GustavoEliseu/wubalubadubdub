@@ -11,10 +11,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.gustavo.wubalubadubdub.utils.BaseEvent
+import com.gustavo.wubalubadubdub.utils.EventObserver
 import dagger.android.support.AndroidSupportInjection
+import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
 
-abstract class BaseFragment<VM : BaseViewModel, F : ViewModelProvider.Factory, VDB : ViewDataBinding>: Fragment() {
+abstract class BaseFragment<VM : BaseViewModel, F : ViewModelProvider.Factory, VDB : ViewDataBinding>: Fragment(), EventObserver {
     lateinit var mActivity: BaseActivity<VM, *>
     lateinit var mViewModel: VM
 
@@ -65,4 +68,7 @@ abstract class BaseFragment<VM : BaseViewModel, F : ViewModelProvider.Factory, V
             execute()
         }
     }
+
+    @Subscribe
+    override fun onMessageEvent(event: BaseEvent) {}
 }

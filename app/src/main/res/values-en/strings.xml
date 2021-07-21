@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wubalubadubdub</string>
+    <string name="characters" translatable="false">Characters</string>
+    <string name="locations" translatable="false">Places</string>
+    <string name="episodes">Episodes</string>
+    <string name="url_not_found">404 could not find URL</string>
+    <string name="name">Name:</string>
+    <string name="status">Status:</string>
+    <string name="species">Species:</string>
+    <string name="origin">Origin:</string>
+    <string name="first_appearance">First Appearance:</string>
+    <string name="last_appearance">"Last Appearance: "</string>
+    <string name="episode_number">Episode %s</string>
+    <string name="image_description">Image showing %s \'s , face.</string>
+    <string name="cant_identify_character_click">Couldn\'t identify clicked character: invalid ID.</string>
+    <string name="cant_reach_url">Unable to reach server. Check network and try again.</string>
+</resources>

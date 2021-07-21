@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.SnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.gustavo.wubalubadubdub.R
 import com.gustavo.wubalubadubdub.base.BaseFragment
 import com.gustavo.wubalubadubdub.databinding.FragmentCharactersListBinding
 import com.gustavo.wubalubadubdub.model.Characters
-import com.gustavo.wubalubadubdub.ui.Activity.characterDetailsIntent
+import com.gustavo.wubalubadubdub.ui.activity.characterDetailsIntent
 import com.gustavo.wubalubadubdub.ui.viewmodel.CharacterListViewModel
 import com.gustavo.wubalubadubdub.ui.viewmodel.CharacterListViewModelFactory
 import io.reactivex.disposables.CompositeDisposable
@@ -26,41 +26,27 @@ class CharacterListFragment :
     CharacterListActions {
 
     private val mDisposable = CompositeDisposable()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    var rvCharacters: RecyclerView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val mBinding = FragmentCharactersListBinding.inflate(inflater, container, false)
-
-        val rvCharacters = mBinding.characterListRecyclerView
+        rvCharacters = mBinding.characterListRecyclerView
         mViewModel.getCharacterList()
 
-        with(mViewModel.mAdapter) {
-
-            rvCharacters.apply {
+            rvCharacters?.apply {
                 postponeEnterTransition()
                 viewTreeObserver.addOnPreDrawListener {
                     startPostponedEnterTransition()
                     true
                 }
-                val snapHelper: SnapHelper = LinearSnapHelper()
-                snapHelper.attachToRecyclerView(rvCharacters)
                 adapter = mViewModel.mAdapter
                 layoutManager =
                     GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
             }
-
-            with(mViewModel) {
-                launchOnLifecycleScope {
-                    charactersFlow.collectLatest { submitData(it) }
-                }
-            }
-        }
+        initList()
 
         mViewModel.initCharacterListActions(this)
 
@@ -81,6 +67,26 @@ class CharacterListFragment :
         CharacterListViewModel::class.java
 
     override fun initializeUi() {
+    }
+
+    fun clearList() {
+        with(mViewModel.mAdapter) {
+            with(mViewModel) {
+                launchOnLifecycleScope {
+                    charactersFlow.collectLatest { submitData(PagingData.empty()) }
+                }
+            }
+        }
+    }
+
+    fun initList() {
+        with(mViewModel.mAdapter) {
+            with(mViewModel) {
+                launchOnLifecycleScope {
+                    charactersFlow.collectLatest { submitData(it) }
+                }
+            }
+        }
     }
 
     override fun onCharacterClick(character: Characters?) {

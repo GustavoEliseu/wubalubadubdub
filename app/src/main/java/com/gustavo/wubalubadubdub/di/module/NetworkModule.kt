@@ -71,7 +71,6 @@ object NetworkModule {
             .writeTimeout(600, TimeUnit.SECONDS)
             .readTimeout(300, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
-            .addInterceptor(interceptor)
             .addInterceptor(UnauthorisedInterceptor())
             .build()
     }
@@ -104,7 +103,11 @@ object NetworkModule {
 
         override fun intercept(chain: Interceptor.Chain): Response {
             val response = chain.proceed(chain.request())
+            Timber.tag("NetworkModuleResponse").e(response.message())
             when {
+                response.message().contains("Unable to resolve host") ->{
+                    RxBus.publish(RxEvent.EventMessageRef(R.string.url_not_found))
+                }
                 response.code() == 404 -> {
                     // post message
                     RxBus.publish(RxEvent.EventMessageRef(R.string.url_not_found))

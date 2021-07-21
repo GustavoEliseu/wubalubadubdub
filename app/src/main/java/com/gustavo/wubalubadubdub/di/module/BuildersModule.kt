@@ -1,10 +1,9 @@
 package com.gustavo.wubalubadubdub.di.module
 
-import com.gustavo.wubalubadubdub.ui.Activity.CharacterDetailsActivity
-import com.gustavo.wubalubadubdub.ui.Activity.MainActivity
+import com.gustavo.wubalubadubdub.ui.activity.CharacterDetailsActivity
+import com.gustavo.wubalubadubdub.ui.activity.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @Module
 abstract class BuildersModule {

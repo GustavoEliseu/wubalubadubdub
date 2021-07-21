@@ -12,6 +12,7 @@ import com.gustavo.wubalubadubdub.ui.CharacterListAdapter
 import com.gustavo.wubalubadubdub.ui.fragments.characters.CharacterListActions
 import com.gustavo.wubalubadubdub.utils.extensions.isNotNullOrNotEmptyOrNotBlank
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -29,10 +30,14 @@ class CharacterListViewModel @Inject constructor(private val repository: Charact
         characterListActions = mCharacterListActions
     }
 
+    fun updateSearchTerm(term:String?){
+        repository.updatePagingDatSource(term)
+    }
+
     fun getCharacterList() {
         viewModelScope.launch {
             try {
-                val result =   repository.getCharacters().cachedIn(viewModelScope)
+                val result =   repository.getCharacters().cachedIn(viewModelScope).cancellable()
                 _charactersFlow = result
             } catch (ex: Exception) {
                 errorMessage.value = ex.message

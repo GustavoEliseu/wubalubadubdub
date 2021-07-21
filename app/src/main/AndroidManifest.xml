@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wubalubadubdub">
-        <activity android:name="com.gustavo.wubalubadubdub.ui.Activity.MainActivity"
+        <activity android:name="com.gustavo.wubalubadubdub.ui.activity.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             tools:replace="screenOrientation">
@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Activity.CharacterDetailsActivity"
+        <activity android:name=".ui.activity.CharacterDetailsActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             tools:replace="screenOrientation"/>

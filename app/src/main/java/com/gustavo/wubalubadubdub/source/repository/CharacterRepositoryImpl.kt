@@ -12,9 +12,14 @@ import javax.inject.Inject
 class CharacterRepositoryImpl @Inject constructor(
     private val service: Api
 ) : CharacterRepository {
+    private val pagingDataSource = CharactersPagingDataSource(service)
+
+    fun updatePagingDatSource(term:String?){
+        pagingDataSource.updateSearch(term)
+    }
 
     override fun getCharacters(): Flow<PagingData<Characters>> = Pager(
         config = PagingConfig(pageSize = 20, prefetchDistance = 2),
-        pagingSourceFactory = { CharactersPagingDataSource(service) }
+        pagingSourceFactory = { pagingDataSource }
     ).flow
 }

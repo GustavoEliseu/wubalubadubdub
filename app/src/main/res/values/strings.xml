@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Wubalubadubdub</string>
+    <string name="app_name" translatable="false">Wubalubadubdub</string>
+    <string name="pickle_rick" translatable="false">Pickle Rick</string>
     <string name="characters">Personagens</string>
     <string name="locations">Lugares</string>
     <string name="episodes">Episódios</string>
@@ -11,5 +12,7 @@
     <string name="first_appearance">Primeira Aparição:</string>
     <string name="last_appearance">Última Aparição:</string>
     <string name="episode_number">Episódio %s</string>
+    <string name="image_description">Imagem com o rosto do personagem, %s</string>
     <string name="cant_identify_character_click">Não foi possível identificar o personagem clicado: ID inválido</string>
+    <string name="cant_reach_url">Não foi possível se conectar ao servidor, verifique a conexão e tente novamente.</string>
 </resources>

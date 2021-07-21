@@ -11,7 +11,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Module
 class DatabaseModule {
 
-    @ExperimentalCoroutinesApi
     @Provides
     fun provideCharacterListViewModelFactory(factory: CharacterListViewModelFactory): ViewModelProvider.Factory =
         factory
